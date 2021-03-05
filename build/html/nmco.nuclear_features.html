@@ -1,0 +1,511 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>nmco.nuclear_features package &mdash; NMCO 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NMCO
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useage.html">Example</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NMCO</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>nmco.nuclear_features package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/nmco.nuclear_features.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nmco-nuclear-features-package">
+<h1>nmco.nuclear_features package<a class="headerlink" href="#nmco-nuclear-features-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-nmco.nuclear_features.Boundary_global">
+<span id="nmco-nuclear-features-boundary-global-module"></span><h2>nmco.nuclear_features.Boundary_global module<a class="headerlink" href="#module-nmco.nuclear_features.Boundary_global" title="Permalink to this headline">¶</a></h2>
+<p>Library for computing features that describe the global boundary features</p>
+<p>This module provides functions that one can use to obtain and describe the shape and size of an object</p>
+<p>Available Functions:
+-calliper_sizes:Obtains the min and max Calliper distances
+-radii_features: Describing centroid to boundary distances
+-boundary_features: Computes all curvature features</p>
+<dl class="py class">
+<dt id="nmco.nuclear_features.Boundary_global.Calliper_Features">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_global.</span></code><code class="sig-name descname"><span class="pre">Calliper_Features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_calliper_sizes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_global.html#Calliper_Features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_global.Calliper_Features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="nmco.nuclear_features.Boundary_global.Radii_Features">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_global.</span></code><code class="sig-name descname"><span class="pre">Radii_Features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_radii_features</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_global.html#Radii_Features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_global.Radii_Features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Boundary_global.boundary_features">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_global.</span></code><code class="sig-name descname"><span class="pre">boundary_features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary_image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centroids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angular_resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_global.html#boundary_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_global.boundary_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute all boundary features
+This function computes all features that describe the boundary features
+:param binary_image: (image_array) Binary image
+:param angular_resolution: (integer) value between 1-359 to determine the number of rotations
+:param centroids: (tuple: x, y coordinates) local centroid of the object</p>
+<p>Returns: A pandas dataframe with all the features for the given image</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Boundary_global.calliper_sizes">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_global.</span></code><code class="sig-name descname"><span class="pre">calliper_sizes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angular_resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_global.html#calliper_sizes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_global.calliper_sizes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtains the min and max Calliper distances</p>
+<p>This functions calculates min and max the calliper distances by rotating the image
+by the given angular resolution</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>binary_mask</strong> – (image_arrray)</p></li>
+<li><p><strong>angular_resolution</strong> – (integer) value between 1-359 to determine the number of rotations</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Boundary_global.radii_features">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_global.</span></code><code class="sig-name descname"><span class="pre">radii_features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centroid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_global.html#radii_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_global.radii_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describing centroid to boundary distances(radii)
+This function obtains radii from the centroid to all the points along the edge and
+using this computes features that describe the morphology of the given object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>binary_mask</strong> – (image_matrix) Background pixels are 0</p></li>
+<li><p><strong>centroid</strong> – (tuple: x, y coordinates) local centroid of the object</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-nmco.nuclear_features.Boundary_local_curvature">
+<span id="nmco-nuclear-features-boundary-local-curvature-module"></span><h2>nmco.nuclear_features.Boundary_local_curvature module<a class="headerlink" href="#module-nmco.nuclear_features.Boundary_local_curvature" title="Permalink to this headline">¶</a></h2>
+<p>Library for computing features that describe the local boundary curvature</p>
+<p>This module provides functions that one can use to obtain, visualise and describe local curvature of a given object.</p>
+<p>Available Functions:
+-circumradius:Finds the radius of a circumcircle
+-local_radius_curvature: Computes local radius of curvature
+-global_curvature_features: Obtain features describing an object’s local curvatures
+-prominant_curvature_features: Obtain prominant (peaks) local curvature
+-curvature_features: Computes all curvature features</p>
+<dl class="py class">
+<dt id="nmco.nuclear_features.Boundary_local_curvature.Global_Curvature_Features">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_local_curvature.</span></code><code class="sig-name descname"><span class="pre">Global_Curvature_Features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_global_curvature_features</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_local_curvature.html#Global_Curvature_Features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_local_curvature.Global_Curvature_Features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="nmco.nuclear_features.Boundary_local_curvature.Prominant_Curvature_Features">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_local_curvature.</span></code><code class="sig-name descname"><span class="pre">Prominant_Curvature_Features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_prominant_curvature_features</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_local_curvature.html#Prominant_Curvature_Features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_local_curvature.Prominant_Curvature_Features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Boundary_local_curvature.circumradius">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_local_curvature.</span></code><code class="sig-name descname"><span class="pre">circumradius</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_local_curvature.html#circumradius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_local_curvature.circumradius" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the radius of a circumcircle
+This functions calculates the radius of circumcircle given the coordinates of 3 points.
+The sign of the radius is positive if the circumcenter is inside the binary image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> – (tuple) cartesian coordinatesof three points:(x1, y1), (x2, y2), (x3, y3)</p></li>
+<li><p><strong>binary_mask</strong> – (image_matrix) The foreground pixels have a value of one.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>if the points are colinear.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Radius of the circumcircle. False if it cannot be calculated eg</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Boundary_local_curvature.curvature_features">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_local_curvature.</span></code><code class="sig-name descname"><span class="pre">curvature_features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary_image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_prominance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_bwt_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_local_curvature.html#curvature_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_local_curvature.curvature_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comupte all curvature features
+This function computes all features that describe the local boundary features</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>binary_image</strong> – (image_array) Binary image</p></li>
+<li><p><strong>step</strong> – (integer) Step size used to obtain the vertices, use larger values for a smoother curvatures</p></li>
+<li><p><strong>min_prominance</strong> – (numeric) minimal required prominance of peaks (Default=0.1)</p></li>
+<li><p><strong>min_width</strong> – (numeric) minimum width required of peaks (Deafult=5)</p></li>
+<li><p><strong>dist_bwt_peaks</strong> – (numeric) required minimum distance between peaks (Default=10)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns: A pandas dataframe with all the features for the given image</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Boundary_local_curvature.global_curvature_features">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_local_curvature.</span></code><code class="sig-name descname"><span class="pre">global_curvature_features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_curvatures</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_local_curvature.html#global_curvature_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_local_curvature.global_curvature_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain features describing an object’s local curvatures
+This function computres features that describe the local curvature distributions,
+:param local_curvatures: (Array) of ordered local curvatures</p>
+<p>Returns: Object with the values</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Boundary_local_curvature.local_radius_curvature">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_local_curvature.</span></code><code class="sig-name descname"><span class="pre">local_radius_curvature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary_image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_local_curvature.html#local_radius_curvature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_local_curvature.local_radius_curvature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes local radius of curvature.</p>
+<p>This functions calculates the local curvatures given a segmented image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>binary_image</strong> – (image_matrix) binary region image of a segmented object.</p></li>
+<li><p><strong>step</strong> – (integer) Step size used to obtain the vertices, use larger values for a smoother curvatures</p></li>
+<li><p><strong>show_boundary</strong> – (Logical) true if function should plot raduis of curvature</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of local curvature features</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Boundary_local_curvature.prominant_curvature_features">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Boundary_local_curvature.</span></code><code class="sig-name descname"><span class="pre">prominant_curvature_features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_curvatures</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_prominance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_bwt_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Boundary_local_curvature.html#prominant_curvature_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Boundary_local_curvature.prominant_curvature_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain prominant (peaks) local curvature
+This function finds peaks for a given list of local curvatures using scipy’s signal module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_curvatures</strong> – (Array) of ordered local curvatures</p></li>
+<li><p><strong>show_plot</strong> – (logical) true if the function should plot the identified peaks</p></li>
+<li><p><strong>min_prominance</strong> – (numeric) minimal required prominance of peaks (Default=0.1)</p></li>
+<li><p><strong>min_width</strong> – (numeric) minimum width required of peaks (Deafult=5)</p></li>
+<li><p><strong>dist_bwt_peaks</strong> – (numeric) required minimum distance between peaks (Default=10)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: Object with the values:</dt><dd><p>num_prominant_positive_curvature,
+prominance_prominant_positive_curvature,
+width_prominant_positive_curvature,
+prominant_positive_curvature,
+num_prominant_negative_curvature,
+prominance_prominant_negative_curvature,
+width_prominant_negative_curvature,
+prominant_negative_curvature</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-nmco.nuclear_features.Img_texture">
+<span id="nmco-nuclear-features-img-texture-module"></span><h2>nmco.nuclear_features.Img_texture module<a class="headerlink" href="#module-nmco.nuclear_features.Img_texture" title="Permalink to this headline">¶</a></h2>
+<p>Library for computing features that describe the texture of a given image</p>
+<p>This module provides functions that one can use to obtain and describe the texture of a given image</p>
+<p>Available Functions:
+-gclm_textures:Compute GLCM features at 1,5, 20 lengths
+-texture_features: Computes all intensity distribution features
+-Peripherial_Distribution_Index: Todo</p>
+<dl class="py function">
+<dt id="nmco.nuclear_features.Img_texture.Peripherial_Distribution_Index">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Img_texture.</span></code><code class="sig-name descname"><span class="pre">Peripherial_Distribution_Index</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regionmask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Img_texture.html#Peripherial_Distribution_Index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Img_texture.Peripherial_Distribution_Index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes pheriphal distribution index of a grayscale image</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Img_texture.gclm_textures">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Img_texture.</span></code><code class="sig-name descname"><span class="pre">gclm_textures</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regionmask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">5,</span> <span class="pre">20]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Img_texture.html#gclm_textures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Img_texture.gclm_textures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute GLCM features at given lengths</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>regionmask=binary</em>) – </p></li>
+<li><p><strong>intensity image</strong> (<em>intensity=</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Img_texture.texture_features">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Img_texture.</span></code><code class="sig-name descname"><span class="pre">texture_features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regionmask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">5,</span> <span class="pre">20]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Img_texture.html#texture_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Img_texture.texture_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute all texture features
+This function computes all features that describe the image texture
+:param regionmask=binary image:
+:param intensity= intensity image:</p>
+<p>Returns: A pandas dataframe with all the features for the given image</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-nmco.nuclear_features.Int_dist_features">
+<span id="nmco-nuclear-features-int-dist-features-module"></span><h2>nmco.nuclear_features.Int_dist_features module<a class="headerlink" href="#module-nmco.nuclear_features.Int_dist_features" title="Permalink to this headline">¶</a></h2>
+<p>Library for computing features that describe the intensity distribution</p>
+<p>This module provides functions that one can use to obtain and describe the intensity distribution of a given image</p>
+<p>Available Functions:
+-hetero_euchro_measures:Computes Heterochromatin to Euchromatin features
+-intensity_histogram_measures: Computes Intensity histogram features
+-entropy_image(regionmask, intensity): Compute Shannon Entropy of a given image
+-intensity_features: Computes all intensity distribution features</p>
+<dl class="py class">
+<dt id="nmco.nuclear_features.Int_dist_features.Entropy_Image">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Int_dist_features.</span></code><code class="sig-name descname"><span class="pre">Entropy_Image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_entropy_image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Int_dist_features.html#Entropy_Image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Int_dist_features.Entropy_Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="nmco.nuclear_features.Int_dist_features.Hetero_Euchro_Measures">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Int_dist_features.</span></code><code class="sig-name descname"><span class="pre">Hetero_Euchro_Measures</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_hetero_euchro_measures</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Int_dist_features.html#Hetero_Euchro_Measures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Int_dist_features.Hetero_Euchro_Measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="nmco.nuclear_features.Int_dist_features.Intensity_Histogram_Measures">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Int_dist_features.</span></code><code class="sig-name descname"><span class="pre">Intensity_Histogram_Measures</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_intensity_histogram_measures</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Int_dist_features.html#Intensity_Histogram_Measures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Int_dist_features.Intensity_Histogram_Measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Int_dist_features.entropy_image">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Int_dist_features.</span></code><code class="sig-name descname"><span class="pre">entropy_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regionmask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Int_dist_features.html#entropy_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Int_dist_features.entropy_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Shannon Entropy of a given image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>regionmask=binary</em>) – </p></li>
+<li><p><strong>intensity image</strong> (<em>intensity=</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Int_dist_features.hetero_euchro_measures">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Int_dist_features.</span></code><code class="sig-name descname"><span class="pre">hetero_euchro_measures</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regionmask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Int_dist_features.html#hetero_euchro_measures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Int_dist_features.hetero_euchro_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Heterochromatin to Euchromatin features</p>
+<p>This functions obtains the Heterochromatin (high intensity) and Euchromatin (low intensity)
+and computes features that describe the relationship between the two</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>regionmask=binary</em>) – </p></li>
+<li><p><strong>intensity image</strong> (<em>intensity=</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Int_dist_features.intensity_features">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Int_dist_features.</span></code><code class="sig-name descname"><span class="pre">intensity_features</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regionmask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Int_dist_features.html#intensity_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Int_dist_features.intensity_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute all intensity distribution features
+This function computes all features that describe the distribution of the gray levels.
+:param regionmask=binary image:
+:param intensity= intensity image:</p>
+<p>Returns: A pandas dataframe with all the features for the given image</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nmco.nuclear_features.Int_dist_features.intensity_histogram_measures">
+<code class="sig-prename descclassname"><span class="pre">nmco.nuclear_features.Int_dist_features.</span></code><code class="sig-name descname"><span class="pre">intensity_histogram_measures</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regionmask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmco/nuclear_features/Int_dist_features.html#intensity_histogram_measures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmco.nuclear_features.Int_dist_features.intensity_histogram_measures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Intensity Distribution features</p>
+<p>This functions computes features that describe the distribution characteristic of the instensity.
+:param regionmask=binary image:
+:param intensity= intensity image:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-nmco.nuclear_features">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nmco.nuclear_features" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Saradha Venkatachalapathy.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>nmco.nuclear_features.Int_dist_features &mdash; NMCO 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> NMCO
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../useage.html">Example</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NMCO</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nmco.nuclear_features.Int_dist_features</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nmco.nuclear_features.Int_dist_features</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Library for computing features that describe the intensity distribution</span>
+
+<span class="sd">This module provides functions that one can use to obtain and describe the intensity distribution of a given image</span>
+
+<span class="sd">Available Functions:</span>
+<span class="sd">-hetero_euchro_measures:Computes Heterochromatin to Euchromatin features</span>
+<span class="sd">-intensity_histogram_measures: Computes Intensity histogram features</span>
+<span class="sd">-entropy_image(regionmask, intensity): Compute Shannon Entropy of a given image</span>
+<span class="sd">-intensity_features: Computes all intensity distribution features</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Import modules</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">skimage.measure</span> <span class="kn">import</span> <span class="n">shannon_entropy</span>
+
+
+<div class="viewcode-block" id="Hetero_Euchro_Measures"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Int_dist_features.Hetero_Euchro_Measures">[docs]</a><span class="k">class</span> <span class="nc">Hetero_Euchro_Measures</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_hetero_euchro_measures</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">i80_i20</span> <span class="o">=</span> <span class="n">output_hetero_euchro_measures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nhigh_nlow</span> <span class="o">=</span> <span class="n">output_hetero_euchro_measures</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hc_area_ec_area</span> <span class="o">=</span> <span class="n">output_hetero_euchro_measures</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hc_area_nuc_area</span> <span class="o">=</span> <span class="n">output_hetero_euchro_measures</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hc_content_ec_content</span> <span class="o">=</span> <span class="n">output_hetero_euchro_measures</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hc_content_dna_content</span> <span class="o">=</span> <span class="n">output_hetero_euchro_measures</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="hetero_euchro_measures"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Int_dist_features.hetero_euchro_measures">[docs]</a><span class="k">def</span> <span class="nf">hetero_euchro_measures</span><span class="p">(</span><span class="n">regionmask</span><span class="p">,</span> <span class="n">intensity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Computes Heterochromatin to Euchromatin features</span>
+<span class="sd">    </span>
+<span class="sd">    This functions obtains the Heterochromatin (high intensity) and Euchromatin (low intensity)</span>
+<span class="sd">    and computes features that describe the relationship between the two</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        regionmask=binary image</span>
+<span class="sd">        intensity= intensity image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">high</span><span class="p">,</span> <span class="n">low</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="n">q</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+    <span class="n">hc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]))</span>
+    <span class="n">feat</span> <span class="o">=</span> <span class="n">Hetero_Euchro_Measures</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">high</span> <span class="o">/</span> <span class="n">low</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">high</span><span class="p">)</span>
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">low</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">hc</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">hc</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">hc</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">hc</span><span class="p">,</span> <span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">hc</span><span class="p">,</span> <span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="mi">0</span><span class="p">)),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">hc</span><span class="p">,</span> <span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="mi">0</span><span class="p">)),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">feat</span></div>
+
+
+<div class="viewcode-block" id="Intensity_Histogram_Measures"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Int_dist_features.Intensity_Histogram_Measures">[docs]</a><span class="k">class</span> <span class="nc">Intensity_Histogram_Measures</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_intensity_histogram_measures</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_min</span> <span class="o">=</span> <span class="n">output_intensity_histogram_measures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_d25</span> <span class="o">=</span> <span class="n">output_intensity_histogram_measures</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_median</span> <span class="o">=</span> <span class="n">output_intensity_histogram_measures</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_d75</span> <span class="o">=</span> <span class="n">output_intensity_histogram_measures</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_max</span> <span class="o">=</span> <span class="n">output_intensity_histogram_measures</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_mean</span> <span class="o">=</span> <span class="n">output_intensity_histogram_measures</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_mode</span> <span class="o">=</span> <span class="n">output_intensity_histogram_measures</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_sd</span> <span class="o">=</span> <span class="n">output_intensity_histogram_measures</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="intensity_histogram_measures"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Int_dist_features.intensity_histogram_measures">[docs]</a><span class="k">def</span> <span class="nf">intensity_histogram_measures</span><span class="p">(</span><span class="n">regionmask</span><span class="p">,</span> <span class="n">intensity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Computes Intensity Distribution features</span>
+<span class="sd">    </span>
+<span class="sd">    This functions computes features that describe the distribution characteristic of the instensity.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        regionmask=binary image</span>
+<span class="sd">        intensity= intensity image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">feat</span> <span class="o">=</span> <span class="n">Intensity_Histogram_Measures</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="mi">25</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="mi">50</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="mi">75</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="mi">100</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]),</span>
+            <span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">intensity</span><span class="p">[</span><span class="n">regionmask</span><span class="p">]),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">feat</span></div>
+
+
+<div class="viewcode-block" id="Entropy_Image"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Int_dist_features.Entropy_Image">[docs]</a><span class="k">class</span> <span class="nc">Entropy_Image</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_entropy_image</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entropy</span> <span class="o">=</span> <span class="n">output_entropy_image</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="entropy_image"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Int_dist_features.entropy_image">[docs]</a><span class="k">def</span> <span class="nf">entropy_image</span><span class="p">(</span><span class="n">regionmask</span><span class="p">,</span> <span class="n">intensity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute Shannon Entropy of a given image</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        regionmask=binary image</span>
+<span class="sd">        intensity= intensity image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">feat</span> <span class="o">=</span> <span class="n">Entropy_Image</span><span class="p">([</span><span class="n">shannon_entropy</span><span class="p">((</span><span class="n">intensity</span> <span class="o">*</span> <span class="n">regionmask</span><span class="p">))])</span>
+    <span class="k">return</span> <span class="n">feat</span></div>
+
+
+<div class="viewcode-block" id="intensity_features"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Int_dist_features.intensity_features">[docs]</a><span class="k">def</span> <span class="nf">intensity_features</span><span class="p">(</span><span class="n">regionmask</span><span class="p">,</span> <span class="n">intensity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute all intensity distribution features</span>
+<span class="sd">    This function computes all features that describe the distribution of the gray levels. </span>
+<span class="sd">    Args:</span>
+<span class="sd">        regionmask=binary image</span>
+<span class="sd">        intensity= intensity image</span>
+<span class="sd">    Returns: A pandas dataframe with all the features for the given image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># compute features</span>
+    <span class="n">dist_measures</span> <span class="o">=</span> <span class="p">[</span><span class="n">intensity_histogram_measures</span><span class="p">(</span><span class="n">regionmask</span><span class="p">,</span> <span class="n">intensity</span><span class="p">)]</span>
+    <span class="n">dist_measures</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">o</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">dist_measures</span><span class="p">])</span>
+
+    <span class="n">he_feat</span> <span class="o">=</span> <span class="p">[</span><span class="n">hetero_euchro_measures</span><span class="p">(</span><span class="n">regionmask</span><span class="p">,</span> <span class="n">intensity</span><span class="p">)]</span>
+    <span class="n">he_feat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">o</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">he_feat</span><span class="p">])</span>
+
+    <span class="n">entropy_feat</span> <span class="o">=</span> <span class="p">[</span><span class="n">entropy_image</span><span class="p">(</span><span class="n">regionmask</span><span class="p">,</span> <span class="n">intensity</span><span class="p">)]</span>
+    <span class="n">entropy_feat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">o</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">entropy_feat</span><span class="p">])</span>
+
+    <span class="n">all_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">entropy_feat</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">he_feat</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">all_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">dist_measures</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">all_features</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">all_features</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Saradha Venkatachalapathy.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

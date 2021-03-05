@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>nmco.utils.Run_nuclear_feature_extraction &mdash; NMCO 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> NMCO
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../useage.html">Example</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NMCO</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nmco.utils.Run_nuclear_feature_extraction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nmco.utils.Run_nuclear_feature_extraction</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">tifffile</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">measure</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cv2</span> <span class="k">as</span> <span class="nn">cv</span>
+<span class="kn">from</span> <span class="nn">nmco.nuclear_features</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Boundary_global</span> <span class="k">as</span> <span class="n">BG</span><span class="p">,</span>
+    <span class="n">Img_texture</span> <span class="k">as</span> <span class="n">IT</span><span class="p">,</span>
+    <span class="n">Int_dist_features</span> <span class="k">as</span> <span class="n">IDF</span><span class="p">,</span>
+    <span class="n">Boundary_local_curvature</span> <span class="k">as</span> <span class="n">BLC</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+
+<div class="viewcode-block" id="run_nuclear_chromatin_feat_ext"><a class="viewcode-back" href="../../../nmco.utils.html#nmco.utils.Run_nuclear_feature_extraction.run_nuclear_chromatin_feat_ext">[docs]</a><span class="k">def</span> <span class="nf">run_nuclear_chromatin_feat_ext</span><span class="p">(</span><span class="n">raw_image_path</span><span class="p">,</span> <span class="n">labelled_image_path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function that reads in the raw and segmented/labelled images for a field of view and computes nuclear features. </span>
+<span class="sd">    Note this has been used only for DAPI stained images</span>
+<span class="sd">    Args:</span>
+<span class="sd">        raw_image_path: path pointing to the raw image</span>
+<span class="sd">        labelled_image_path: path pointing to the segmented image</span>
+<span class="sd">        output_dir: path where the results need to be stored</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">labelled_image</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">labelled_image_path</span><span class="p">)</span>
+    <span class="n">raw_image</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">raw_image_path</span><span class="p">)</span>
+    <span class="n">labelled_image</span> <span class="o">=</span> <span class="n">labelled_image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">raw_image</span> <span class="o">=</span> <span class="n">raw_image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="c1"># normalize images</span>
+    <span class="n">raw_image</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+        <span class="n">raw_image</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">norm_type</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">NORM_MINMAX</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">CV_32F</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Get features for the individual nuclei in the image</span>
+    <span class="n">props</span> <span class="o">=</span> <span class="n">measure</span><span class="o">.</span><span class="n">regionprops</span><span class="p">(</span><span class="n">labelled_image</span><span class="p">,</span> <span class="n">raw_image</span><span class="p">)</span>
+
+    <span class="c1"># Measure scikit&#39;s built in features</span>
+    <span class="n">propstable</span> <span class="o">=</span> <span class="n">measure</span><span class="o">.</span><span class="n">regionprops_table</span><span class="p">(</span>
+        <span class="n">labelled_image</span><span class="p">,</span>
+        <span class="n">raw_image</span><span class="p">,</span>
+        <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="p">[</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;area&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;perimeter&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bbox&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bbox_area&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;convex_area&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;equivalent_diameter&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;major_axis_length&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;minor_axis_length&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;eccentricity&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;orientation&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;centroid&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;weighted_centroid&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;weighted_moments&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;weighted_moments_normalized&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;weighted_moments_central&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;weighted_moments_hu&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;moments&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;moments_normalized&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;moments_central&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;moments_hu&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">propstable</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">propstable</span><span class="p">)</span>
+
+    <span class="c1"># measure other inhouse features</span>
+    <span class="n">all_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">BLC</span><span class="o">.</span><span class="n">curvature_features</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">BG</span><span class="o">.</span><span class="n">boundary_features</span><span class="p">(</span>
+                <span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">centroids</span><span class="o">=</span><span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">local_centroid</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">IDF</span><span class="o">.</span><span class="n">intensity_features</span><span class="p">(</span>
+                <span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">intensity_image</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">IT</span><span class="o">.</span><span class="n">texture_features</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">intensity_image</span><span class="p">),</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]),</span>
+        <span class="p">],</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">props</span><span class="p">))):</span>
+        <span class="n">all_features</span> <span class="o">=</span> <span class="n">all_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">BLC</span><span class="o">.</span><span class="n">curvature_features</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span>
+                        <span class="n">drop</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="p">),</span>
+                    <span class="n">BG</span><span class="o">.</span><span class="n">boundary_features</span><span class="p">(</span>
+                        <span class="n">props</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">centroids</span><span class="o">=</span><span class="n">props</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">local_centroid</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                    <span class="n">IDF</span><span class="o">.</span><span class="n">intensity_features</span><span class="p">(</span>
+                        <span class="n">props</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">props</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">intensity_image</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                    <span class="n">IT</span><span class="o">.</span><span class="n">texture_features</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">props</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">intensity_image</span><span class="p">),</span>
+                    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]),</span>
+                <span class="p">],</span>
+                <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Add in other related features for good measure</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">all_features</span><span class="p">,</span> <span class="n">propstable</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;concavity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;convex_area&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="n">features</span><span class="p">[</span>
+        <span class="s2">&quot;convex_area&quot;</span>
+    <span class="p">]</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;solidity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;convex_area&quot;</span><span class="p">]</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;a_r&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;minor_axis_length&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;major_axis_length&quot;</span><span class="p">]</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;shape_factor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;perimeter&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span>
+        <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;area_bbarea&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;bbox_area&quot;</span><span class="p">]</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;center_mismatch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;weighted_centroid-0&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;centroid-0&quot;</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="o">+</span> <span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;weighted_centroid-1&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;centroid-1&quot;</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="p">)</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;smallest_largest_calliper&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;min_calliper&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;max_calliper&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;frac_peri_w_posi_curvature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;len_posi_curvature&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;perimeter&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;frac_peri_w_neg_curvature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;len_neg_curvature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s2">&quot;NA&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="o">/</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;perimeter&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;frac_peri_w_polarity_changes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;npolarity_changes&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;perimeter&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1">#save the output</span>
+    <span class="n">features</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_dir</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">labelled_image_path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">features</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Saradha Venkatachalapathy.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

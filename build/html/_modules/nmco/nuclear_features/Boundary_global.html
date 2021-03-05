@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>nmco.nuclear_features.Boundary_global &mdash; NMCO 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> NMCO
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../useage.html">Example</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NMCO</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nmco.nuclear_features.Boundary_global</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nmco.nuclear_features.Boundary_global</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Library for computing features that describe the global boundary features</span>
+
+<span class="sd">This module provides functions that one can use to obtain and describe the shape and size of an object</span>
+
+<span class="sd">Available Functions:</span>
+<span class="sd">-calliper_sizes:Obtains the min and max Calliper distances</span>
+<span class="sd">-radii_features: Describing centroid to boundary distances</span>
+<span class="sd">-boundary_features: Computes all curvature features</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># import libraries</span>
+<span class="kn">from</span> <span class="nn">skimage.morphology</span> <span class="kn">import</span> <span class="n">erosion</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span><span class="p">,</span> <span class="n">distance_matrix</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">rotate</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="Radii_Features"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Boundary_global.Radii_Features">[docs]</a><span class="k">class</span> <span class="nc">Radii_Features</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_radii_features</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_radius</span> <span class="o">=</span> <span class="n">output_radii_features</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_radius</span> <span class="o">=</span> <span class="n">output_radii_features</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">med_radius</span> <span class="o">=</span> <span class="n">output_radii_features</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avg_radius</span> <span class="o">=</span> <span class="n">output_radii_features</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode_radius</span> <span class="o">=</span> <span class="n">output_radii_features</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d25_radius</span> <span class="o">=</span> <span class="n">output_radii_features</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d75_radius</span> <span class="o">=</span> <span class="n">output_radii_features</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">std_radius</span> <span class="o">=</span> <span class="n">output_radii_features</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feret_max</span> <span class="o">=</span> <span class="n">output_radii_features</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Calliper_Features"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Boundary_global.Calliper_Features">[docs]</a><span class="k">class</span> <span class="nc">Calliper_Features</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_calliper_sizes</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_calliper</span> <span class="o">=</span> <span class="n">output_calliper_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_calliper</span> <span class="o">=</span> <span class="n">output_calliper_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="radii_features"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Boundary_global.radii_features">[docs]</a><span class="k">def</span> <span class="nf">radii_features</span><span class="p">(</span><span class="n">binary_mask</span><span class="p">,</span> <span class="n">centroid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Describing centroid to boundary distances(radii)</span>
+<span class="sd">    This function obtains radii from the centroid to all the points along the edge and </span>
+<span class="sd">    using this computes features that describe the morphology of the given object.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        binary_mask:(image_matrix) Background pixels are 0</span>
+<span class="sd">        centroid: (tuple: x, y coordinates) local centroid of the object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># obtain the edge pixels</span>
+    <span class="n">bw</span> <span class="o">=</span> <span class="n">binary_mask</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">cenx</span><span class="p">,</span> <span class="n">ceny</span> <span class="o">=</span> <span class="n">centroid</span>
+    <span class="n">edge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">bw</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="n">erosion</span><span class="p">(</span><span class="n">bw</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">boundary_x</span><span class="p">,</span> <span class="n">boundary_y</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">edge</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">edge</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="c1"># calculate radii</span>
+    <span class="n">dist_b_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">boundary_x</span> <span class="o">-</span> <span class="n">cenx</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">boundary_y</span> <span class="o">-</span> <span class="n">ceny</span><span class="p">))</span>
+    <span class="n">cords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">boundary_x</span><span class="p">,</span> <span class="n">boundary_y</span><span class="p">))</span>
+    <span class="n">dist_matrix</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">squareform</span><span class="p">(</span><span class="n">distance</span><span class="o">.</span><span class="n">pdist</span><span class="p">(</span><span class="n">cords</span><span class="p">,</span> <span class="s2">&quot;euclidean&quot;</span><span class="p">))</span>
+    <span class="c1"># Compute features</span>
+    <span class="n">feret</span> <span class="o">=</span> <span class="n">dist_matrix</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">dist_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>  <span class="c1"># offset</span>
+
+    <span class="n">feat</span> <span class="o">=</span> <span class="n">Radii_Features</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">dist_b_c</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dist_b_c</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">dist_b_c</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dist_b_c</span><span class="p">),</span>
+            <span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">dist_b_c</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">dist_b_c</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">dist_b_c</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">dist_b_c</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">feret</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">feat</span></div>
+
+
+<div class="viewcode-block" id="calliper_sizes"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Boundary_global.calliper_sizes">[docs]</a><span class="k">def</span> <span class="nf">calliper_sizes</span><span class="p">(</span><span class="n">binary_mask</span><span class="p">,</span> <span class="n">angular_resolution</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Obtains the min and max Calliper distances</span>
+<span class="sd">    </span>
+<span class="sd">    This functions calculates min and max the calliper distances by rotating the image</span>
+<span class="sd">    by the given angular resolution</span>
+<span class="sd">    </span>
+<span class="sd">    Args: </span>
+<span class="sd">        binary_mask:(image_arrray)</span>
+<span class="sd">        angular_resolution:(integer) value between 1-359 to determine the number of rotations</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">binary_mask</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">callipers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="n">rot_img</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">callipers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rot_img</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span>
+    <span class="n">feat</span> <span class="o">=</span> <span class="n">Calliper_Features</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">callipers</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">callipers</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="n">feat</span></div>
+
+
+<div class="viewcode-block" id="boundary_features"><a class="viewcode-back" href="../../../nmco.nuclear_features.html#nmco.nuclear_features.Boundary_global.boundary_features">[docs]</a><span class="k">def</span> <span class="nf">boundary_features</span><span class="p">(</span>
+    <span class="n">binary_image</span><span class="p">,</span> <span class="n">centroids</span><span class="p">,</span> <span class="n">angular_resolution</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute all boundary features</span>
+<span class="sd">    This function computes all features that describe the boundary features</span>
+<span class="sd">    Args:</span>
+<span class="sd">        binary_image:(image_array) Binary image </span>
+<span class="sd">        angular_resolution:(integer) value between 1-359 to determine the number of rotations</span>
+<span class="sd">        centroids:(tuple: x, y coordinates) local centroid of the object</span>
+<span class="sd">    Returns: A pandas dataframe with all the features for the given image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># compute local and global features</span>
+    <span class="n">calliper_features</span> <span class="o">=</span> <span class="p">[</span><span class="n">calliper_sizes</span><span class="p">(</span><span class="n">binary_image</span><span class="p">)]</span>
+    <span class="n">calliper_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">o</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">calliper_features</span><span class="p">])</span>
+
+    <span class="n">radii_parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">radii_features</span><span class="p">(</span><span class="n">binary_image</span><span class="p">,</span> <span class="n">centroids</span><span class="p">)]</span>
+    <span class="n">radii_parameters</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">o</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">radii_parameters</span><span class="p">])</span>
+
+    <span class="n">all_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">calliper_features</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">radii_parameters</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">all_features</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Saradha Venkatachalapathy.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
