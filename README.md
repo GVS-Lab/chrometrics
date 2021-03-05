@@ -46,3 +46,18 @@ feature_path = os.path.join(os.path.dirname(os.getcwd()),'example_data/')
 # For a quick extraction of all available features for all labelled nuclei given a segmented image with default parameters
 features = run_nuclear_chromatin_feat_ext(raw_image_path,labelled_image_path,feature_path)
 ```
+
+## How to cite 
+
+```bibtex
+@article{venkatachalapathy2020multivariate,
+  title={Multivariate analysis reveals activation-primed fibroblast geometric states in engineered 3D tumor microenvironments},
+  author={Venkatachalapathy, Saradha and Jokhun, Doorgesh Sharma and Shivashankar, GV},
+  journal={Molecular biology of the cell},
+  volume={31},
+  number={8},
+  pages={803--812},
+  year={2020},
+  publisher={Am Soc Cell Biol}
+}
+```
