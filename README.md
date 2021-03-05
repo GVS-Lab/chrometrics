@@ -10,6 +10,12 @@ Documentation is available [here](https://nmco-image-features.readthedocs.io/en/
 ## Installation 
 The current implementation has been developed in Python 3 and tested in Ubuntu 18.0
 
+In order to avoid any changes to the local packages, install in a virtual environment (optional).
+
+```
+   $ conda create --name NMCO python
+   $ conda activate NMCO
+```
 
 To clone the repository run the following from the terminal.
 
@@ -17,13 +23,12 @@ To clone the repository run the following from the terminal.
    $ git clone https://github.com/GVS-Lab/NMCO-Image-Features.git
 ```
 
-Then run the setup from the repository directory
+Then install requirements and run the setup from the repository directory
 
 ```
+   $ pip install -r requirements.txt
    $ sudo python setup.py install
 ```
-
-In order to avoid any changes to the local packages, install in a virtual environment.
 
 ## Simple example 
 
