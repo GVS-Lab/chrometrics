@@ -23,7 +23,7 @@ Then run the setup from the repository directory
    $ sudo python setup.py install
 ```
 
-In order to avoid any changes to the local repository, install in a virtual environment.
+In order to avoid any changes to the local packages, install in a virtual environment.
 
 ## Simple example 
 
