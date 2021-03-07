@@ -27,10 +27,13 @@ def run_nuclear_chromatin_feat_ext(raw_image_path, labelled_image_path, output_d
     labelled_image = labelled_image.astype(int)
     raw_image = raw_image.astype(int)
 
-    # normalize images
-    raw_image = cv.normalize(
-        raw_image, None, alpha=0, beta=255, norm_type=cv.NORM_MINMAX, dtype=cv.CV_32F
-    )
+    # Insert code for preprocessing image
+    # Eg normalize
+    # raw_image = cv.normalize(
+    #      raw_image, None, alpha=0, beta=255, norm_type=cv.NORM_MINMAX, dtype=cv.CV_32F
+    #  )
+    # raw_image[raw_image < 0] = 0.0
+    # raw_image[raw_image > 255] = 255.0
 
     # Get features for the individual nuclei in the image
     props = measure.regionprops(labelled_image, raw_image)
