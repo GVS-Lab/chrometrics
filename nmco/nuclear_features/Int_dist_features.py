@@ -27,7 +27,7 @@ class Hetero_Euchro_Measures:
         self.hc_content_dna_content = output_hetero_euchro_measures[5]
 
 
-def hetero_euchro_measures(regionmask, intensity):
+def hetero_euchro_measures(regionmask, intensity, alpha:float=1.0):
     """Computes Heterochromatin to Euchromatin features
     
     This functions obtains the Heterochromatin (high intensity) and Euchromatin (low intensity)
@@ -38,7 +38,7 @@ def hetero_euchro_measures(regionmask, intensity):
         intensity= intensity image
     """
     high, low = np.percentile(intensity[regionmask], q=(80, 20))
-    hc = np.mean(intensity[regionmask]) + (1.5 * np.std(intensity[regionmask]))
+    hc = np.mean(intensity[regionmask]) + (alpha * np.std(intensity[regionmask]))
     feat = Hetero_Euchro_Measures(
         [
             high / low,

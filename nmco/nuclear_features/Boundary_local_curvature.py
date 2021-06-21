@@ -169,7 +169,7 @@ def global_curvature_features(local_curvatures):
             std_posi_curv,
             sum_posi_curv,
             len_posi_curv,
-        ) = ("NA", "NA", "NA", "NA", "NA", "NA")
+        ) = (np.nan, np.nan, np.nan, np.nan, np.nan, np.nan)
 
     if neg_curvature.shape[0] > 0:
         (
@@ -196,7 +196,7 @@ def global_curvature_features(local_curvatures):
             std_neg_curv,
             sum_neg_curv,
             len_neg_curv,
-        ) = ("NA", "NA", "NA", "NA", "NA", "NA")
+        ) = (np.nan, np.nan, np.nan, np.nan, np.nan, np.nan)
 
     return Global_Curvature_Features(
         [
@@ -292,9 +292,9 @@ def prominant_curvature_features(
             [local_curvatures[pos_peaks[x]] for x in range(len(pos_peaks))]
         )
     elif len(pos_peaks) == 0:
-        prominance_prominant_positive_curvature = "NA"
-        width_prominant_positive_curvature = "NA"
-        prominant_positive_curvature = "NA"
+        prominance_prominant_positive_curvature = np.nan
+        width_prominant_positive_curvature = np.nan
+        prominant_positive_curvature = np.nan
 
     num_prominant_negative_curvature = len(neg_peaks)
     if len(neg_peaks) > 0:
@@ -304,9 +304,9 @@ def prominant_curvature_features(
             [local_curvatures[neg_peaks[x]] for x in range(len(neg_peaks))]
         )
     elif len(neg_peaks) == 0:
-        prominance_prominant_negative_curvature = "NA"
-        width_prominant_negative_curvature = "NA"
-        prominant_negative_curvature = "NA"
+        prominance_prominant_negative_curvature = np.nan
+        width_prominant_negative_curvature = np.nan
+        prominant_negative_curvature = np.nan
 
     return Prominant_Curvature_Features(
         [
