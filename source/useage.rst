@@ -22,5 +22,11 @@ There are test images provided with this package.
 	# For a quick extraction of all available features for all labelled nuclei given a segmented image with default parameters
 	features = run_nuclear_chromatin_feat_ext(raw_image_path,labelled_image_path,feature_path)
 
+Alternatively, use the CLI version using default parameters as follows. 
+
+::
+	python measure_nmco_features.py --rawdir <path/to/image> --datadir <path/to/labelled_image> --savedir <path/to/output/folder>
+
+
 
 A more detailed implimenataion can be seen in the jupyter notebook "Nuclear_Features.ipynb"
