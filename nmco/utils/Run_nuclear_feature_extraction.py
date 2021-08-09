@@ -5,15 +5,20 @@ from skimage import measure
 import numpy as np
 import cv2 as cv
 from nmco.nuclear_features import (
-    Boundary_global as BG,
-    Img_texture as IT,
-    Int_dist_features as IDF,
-    Boundary_local_curvature as BLC,
+    global_morphology as BG,
+    img_texture as IT,
+    int_dist_features as IDF,
+    boundary_local_curvature as BLC
 )
 from tqdm.notebook import tqdm
 
-
-def run_nuclear_chromatin_feat_ext(raw_image_path, labelled_image_path, output_dir):
+def run_nuclear_chromatin_feat_ext(raw_image_path:str, labelled_image_path:str, output_dir:str,
+                                   calliper_angular_resolution=10, measure_simple_geometry= True, 
+                                   measure_calliper_distances = True, measure_radii_features = True,
+                                  step_size_curvature = 2, prominance_curvature = 0.1, 
+                                   width_prominent_curvature = 5, dist_bt_peaks_curvature = 10,
+                                  measure_int_dist_features = True, measure_hc_ec_ratios_features = True, 
+                                   hc_threshold = 1, gclm_lengths=[1, 5, 20]):
     """
     Function that reads in the raw and segmented/labelled images for a field of view and computes nuclear features. 
     Note this has been used only for DAPI stained images
@@ -37,104 +42,34 @@ def run_nuclear_chromatin_feat_ext(raw_image_path, labelled_image_path, output_d
 
     # Get features for the individual nuclei in the image
     props = measure.regionprops(labelled_image, raw_image)
-
+    
+    all_features = pd.DataFrame()
     # Measure scikit's built in features
-    propstable = measure.regionprops_table(
-        labelled_image,
-        raw_image,
-        cache=True,
-        properties=[
-            "label",
-            "area",
-            "perimeter",
-            "bbox",
-            "bbox_area",
-            "convex_area",
-            "equivalent_diameter",
-            "major_axis_length",
-            "minor_axis_length",
-            "eccentricity",
-            "orientation",
-            "centroid",
-            "weighted_centroid",
-            "weighted_moments",
-            "weighted_moments_normalized",
-            "weighted_moments_central",
-            "weighted_moments_hu",
-            "moments",
-            "moments_normalized",
-            "moments_central",
-            "moments_hu",
-        ],
-    )
-    propstable = pd.DataFrame(propstable)
-
-    # measure other inhouse features
-    all_features = pd.concat(
-        [
-            BLC.curvature_features(props[0].image, step=5).reset_index(drop=True),
-            BG.boundary_features(
-                props[0].image, centroids=props[0].local_centroid
-            ).reset_index(drop=True),
-            IDF.intensity_features(
-                props[0].image, props[0].intensity_image
-            ).reset_index(drop=True),
-            IT.texture_features(props[0].image, props[0].intensity_image),
-            pd.DataFrame([1], columns=["label"]),
-        ],
-        axis=1,
-    )
-    for i in tqdm(range(1, len(props))):
+    
+    for i in tqdm(range(len(props))):
         all_features = all_features.append(
             pd.concat(
-                [
-                    BLC.curvature_features(props[i].image, step=5).reset_index(
-                        drop=True
-                    ),
-                    BG.boundary_features(
-                        props[i].image, centroids=props[i].local_centroid
-                    ).reset_index(drop=True),
-                    IDF.intensity_features(
-                        props[i].image, props[i].intensity_image
-                    ).reset_index(drop=True),
-                    IT.texture_features(props[i].image, props[i].intensity_image),
-                    pd.DataFrame([i + 1], columns=["label"]),
-                ],
+                [pd.DataFrame([i + 1], columns=["label"]),
+                 BG.measure_global_morphometrics(props[i].image, 
+                                                 angular_resolution = calliper_angular_resolution, 
+                                                 measure_simple = measure_simple_geometry,
+                                                 measure_calliper = measure_calliper_distances, 
+                                                 measure_radii = measure_radii_features).reset_index(drop=True),
+                 BLC.measure_curvature_features(props[i].image, step = step_size_curvature, 
+                                                prominance = prominance_curvature, 
+                                                width = width_prominent_curvature, 
+                                                dist_bt_peaks = dist_bt_peaks_curvature).reset_index(drop=True),
+                 IDF.measure_intensity_features(props[i].image, props[i].intensity_image, 
+                                                measure_int_dist = measure_int_dist_features, 
+                                                measure_hc_ec_ratios = measure_hc_ec_ratios_features, 
+                                                hc_alpha = hc_threshold).reset_index(drop=True),
+                 IT.measure_texture_features(props[i].image, props[i].intensity_image, lengths=gclm_lengths)],
                 axis=1,
             ),
             ignore_index=True,
         )
-
-    # Add in other related features for good measure
-    features = pd.merge(all_features, propstable, on="label")
-    features["concavity"] = (features["convex_area"] - features["area"]) / features[
-        "convex_area"
-    ]
-    features["solidity"] = features["area"] / features["convex_area"]
-    features["a_r"] = features["minor_axis_length"] / features["major_axis_length"]
-    features["shape_factor"] = (features["perimeter"] ** 2) / (
-        4 * np.pi * features["area"]
-    )
-    features["area_bbarea"] = features["area"] / features["bbox_area"]
-    features["center_mismatch"] = np.sqrt(
-        (features["weighted_centroid-0"] - features["centroid-0"]) ** 2
-        + (features["weighted_centroid-1"] - features["centroid-1"]) ** 2
-    )
-    features["smallest_largest_calliper"] = (
-        features["min_calliper"] / features["max_calliper"]
-    )
-    features["frac_peri_w_posi_curvature"] = (
-        features["len_posi_curvature"] / features["perimeter"]
-    )
-    features["frac_peri_w_neg_curvature"] = (
-        features["len_neg_curvature"].replace(to_replace="NA", value=0)
-        / features["perimeter"]
-    )
-    features["frac_peri_w_polarity_changes"] = (
-        features["npolarity_changes"] / features["perimeter"]
-    )
-
+   
     #save the output
-    features.to_csv(output_dir+"/"+labelled_image_path.rsplit('/', 1)[-1][:-4]+".csv")
+    all_features.to_csv(output_dir+"/"+labelled_image_path.rsplit('/', 1)[-1][:-4]+".csv")
 
-    return features
+    return all_features
