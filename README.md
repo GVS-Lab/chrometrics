@@ -14,7 +14,7 @@ This package aims to provide an exhaustive set of interpretable morphometric and
 Documentation is being updated and will be made available [here](https://nmco-image-features.readthedocs.io/en/latest/?badge=latest)
 
 ## Installation 
-The current implementation has been developed in Python 3 and tested in Ubuntu 18.0
+The current implementation has been developed in Python 3.
 
 In order to avoid any changes to the local packages, install in a virtual environment (optional).
 
