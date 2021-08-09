@@ -27,7 +27,7 @@ Then install requirements and run the setup from the repository directory
 
 ```
    $ pip install -r requirements.txt
-   $ sudo python setup.py install
+   $ python setup.py install
 ```
 
 ## Simple example 
@@ -35,7 +35,7 @@ Then install requirements and run the setup from the repository directory
 ```
 #import libraries
 import os
-from nmco.utils.Run_nuclear_feature_extraction import run_nuclear_chromatin_feat_ext
+from nmco.utils.run_nuclear_feature_extraction import run_nuclear_chromatin_feat_ext
 
 
 # initialising paths
@@ -46,6 +46,12 @@ feature_path = os.path.join(os.path.dirname(os.getcwd()),'example_data/')
 # For a quick extraction of all available features for all labelled nuclei given a segmented image with default parameters
 features = run_nuclear_chromatin_feat_ext(raw_image_path,labelled_image_path,feature_path)
 ```
+Alternatively, use the CLI version using default parameters as follows. 
+
+```
+python measure_nmco_features.py --rawdir <path/to/image> --datadir <path/to/labelled_image> --savedir <path/to/output/folder>
+```
+
 
 ## How to cite 
 
