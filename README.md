@@ -5,7 +5,7 @@ The packing of the genome within the nucleus informs the cellular state. High re
 
 This package aims to provide an exhaustive set of interpretable morphometric and texture features for every single nucleus following segmentation from a 2D single channel image.
 
-Documentation is available [here](https://nmco-image-features.readthedocs.io/en/latest/?badge=latest)
+Documentation is being updated and will be made available [here](https://nmco-image-features.readthedocs.io/en/latest/?badge=latest)
 
 ## Installation 
 The current implementation has been developed in Python 3 and tested in Ubuntu 18.0
