@@ -1,6 +1,6 @@
 [![Documentation Status](https://readthedocs.org/projects/nmco-image-features/badge/?version=latest)](https://nmco-image-features.readthedocs.io/en/latest/?badge=latest)
 
-# Chrometrics 
+# chrometrics 
 Since, the packing of the genome within the nucleus informs cellular state, nuclear morphology and chromatin organization(NMCO) features hold biologically meaningful information. High resolution images of DNA as visualised using a fluorescent microscope is a convenient tool to characterize such DNA organization. 
 
 This package aims to provide an exhaustive set of interpretable morphometric and texture features for every single nucleus following segmentation from a 2D single channel image. Below is a brief overview of the features used 
