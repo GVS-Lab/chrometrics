@@ -21,14 +21,14 @@ The current implementation has been developed in Python 3.
 In order to avoid any changes to the local packages, install in a virtual environment (optional).
 
 ```
-   $ conda create --name NMCO python
-   $ conda activate NMCO
+   $ conda create --name nmco python
+   $ conda activate nmco
 ```
 
 To clone the repository run the following from the terminal.
 
 ```
-   $ git clone https://github.com/GVS-Lab/NMCO-Image-Features.git
+   $ git clone https://github.com/GVS-Lab/chrometrics.git
 ```
 
 Then install requirements and run the setup from the repository directory
