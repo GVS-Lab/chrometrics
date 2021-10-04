@@ -27,7 +27,8 @@ def run_nuclear_chromatin_feat_ext(raw_image_path:str, labelled_image_path:str, 
                                    gclm_lengths:list = [1, 5, 20],
                                    measure_gclm_features: bool = True, 
                                    measure_moments_features: bool = True,
-                                   normalize:bool=False):
+                                   normalize:bool=False, 
+                                   save_output:bool = False):
     """
     Function that reads in the raw and segmented/labelled images for a field of view and computes nuclear features. 
     Note this has been used only for DAPI stained images
@@ -82,6 +83,7 @@ def run_nuclear_chromatin_feat_ext(raw_image_path:str, labelled_image_path:str, 
         )
    
     #save the output
-    #all_features.to_csv(output_dir+"/"+labelled_image_path.rsplit('/', 1)[-1][:-4]+".csv")
+    if save_output:
+        all_features.to_csv(output_dir+"/"+labelled_image_path.rsplit('/', 1)[-1][:-4]+".csv")
 
     return all_features
