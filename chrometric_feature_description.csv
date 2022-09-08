@@ -1,0 +1,203 @@
+,feature,long_name,description,category
+0,label,label_id,Object ID in the segmented image,n/a
+1,min_calliper,min_caliper_distance,Minimal caliper distance,morphology
+2,max_calliper,max_caliper_distance,Maximal caliper distance,morphology
+3,smallest_largest_calliper,min_to_max_caliper_distance_ratio,Ratio of the minimal and maximal caliper distances,morphology
+4,min_radius,min_radial_distance,Minimal distance of the centroid to the boundary,morphology
+5,max_radius,max_radial_distance,Maximal distance of the centroid to the boundary,morphology
+6,med_radius,median_radial_distance,Median distance of the centroid to the boundary,morphology
+7,avg_radius,mean_radial_distance,Mean distance of the centroid to the boundary,morphology
+8,mode_radius,mode_radial_distance,Mode of the radial distances,morphology
+9,d25_radius,p25_radial_distance,25%-tile of the radial distances,morphology
+10,d75_radius,p75_radial_distance,75%-tile of the radial distances,morphology
+11,std_radius,std_radial_distance,Standard deviation of the radial distances,morphology
+12,feret_max,max_feret_diameter,Maximum Feret diameter,morphology
+13,centroid-0,centroid_y,y coordinate of the centroid,morphology
+14,centroid-1,centroid_x,x coordinate of the centroid,morphology
+15,area,area,Area,morphology
+16,perimeter,perimeter,Perimeter,morphology
+17,bbox_area,bbox_area,Area of the bounding box,morphology
+18,convex_area,area_convex_hull,Area of the convex hull,morphology
+19,equivalent_diameter,equivalent_diameter,Diameter of a circle with equal area,morphology
+20,major_axis_length,major_axis_length,Length of the major axis of an ellipsoid of equal area,morphology
+21,minor_axis_length,minor_axis_length,Length of the minor axis of an ellipsoid of equal area,morphology
+22,eccentricity,eccentricity,Eccentricity of an ellipsoid with an equal second-order moment,morphology
+23,orientation,orientation,Angle between the y-axis and the major axis,morphology
+24,concavity,concavity,Normalized difference of the area of the convex hull and the actual area,morphology
+25,solidity,solidity,Area divided by the area of the convex hull,morphology
+26,a_r,aspect_ratio,Ratio of the minor to the major axis length,morphology
+27,shape_factor,shape_factor,Shape factor that is the square of the perimeter divided by 4 times pi times the area,morphology
+28,area_bbarea,area_bbarea,Ratio of the area to the bounding box area,morphology
+29,avg_curvature,mean_curvature,Average of the curvature of the boundary,boundary
+30,std_curvature,std_curvature,Standard deviation of the curvature of the boundary,boundary
+31,npolarity_changes,num_polarity_changes,Number of the polarity changes of the boundary,boundary
+32,max_posi_curv,max_pos_curvature,Maximal positive curvature of the boundary,boundary
+33,avg_posi_curv,mean_pos_curvature,Average positive curvature of the boundary,boundary
+34,med_posi_curv,median_pos_curvature,Median positive curvature of the boundary,boundary
+35,std_posi_curv,std_pos_curvature,Standard deviation of the positive curvature of the boundary,boundary
+36,sum_posi_curv,sum_pos_curvature,Sum of the positive curvature of the boundary,boundary
+37,len_posi_curv,length_pos_curvature,Length of the positive curvature of the boundary,boundary
+38,max_neg_curv,max_neg_curvature,Maximal negative curvature of the boundary,boundary
+39,avg_neg_curv,mean_neg_curvature,Average negative curvature of the boundary,boundary
+40,med_neg_curv,median_neg_curvature,Median of the negative curvature of the boundary,boundary
+41,std_neg_curv,std_neg_curvature,Standard deviation of the negative curvature of the boundary,boundary
+42,sum_neg_curv,sum_neg_curvature,Sum of the negative curvature of the boundary,boundary
+43,len_neg_curv,length_neg_curvature,Length of the negative curvature of the boundary,boundary
+44,num_prominant_pos_curv,num_prominant_pos_curvature,Number of prominent peaks of the positive curvature distribution of the boundary,boundary
+45,prominance_prominant_pos_curv,mean_prominant_pos_curvature,Average of the prominance of the prominent peaks of the positive curvature distribution of the boundary,boundary
+46,width_prominant_pos_curv,width_prominant_pos_curvature,Average width of the prominent peaks of the positive curvature distribution of the boundary,boundary
+47,prominant_pos_curv,prominant_pos_curvature,Average of the local positive curvature around the prominent peaks,boundary
+48,num_prominant_neg_curv,num_prominant_neg_curvature,Number of prominent peaks of the negative curvature distribution of the boundary,boundary
+49,prominance_prominant_neg_curv,mean_prominant_neg_curvature,Average of the prominance of the prominent peaks of the negative curvature distribution of the boundary,boundary
+50,width_prominant_neg_curv,width_prominant_neg_curvature,Average width of the prominent peaks of the negative curvature distribution of the boundary,boundary
+51,prominant_neg_curv,prominant_neg_curvature,Average of the local negative curvature around the prominent peaks,boundary
+52,frac_peri_w_posi_curvature,perimeter_to_pos_curvature,Ratio of the length of the boundary with positive curvature to the total perimeter,boundary
+53,frac_peri_w_neg_curvature,perimeter_to_neg_curvature,Ratio of the length of the boundary with negative curvature to the total perimeter,boundary
+54,frac_peri_w_polarity_changes,perimeter_to_num_polarity_changes,Number of polarity changes of the local curvature of the boundary normalized by the perimeter length,boundary
+55,int_min,min_intensity,Minimal intensity,intensity
+56,int_d25,p25_intensity,25%-tile of the intensity distribution,intensity
+57,int_median,median_intensity,Median intensity,intensity
+58,int_d75,p75_intensity,75%-tile of the intensity distribution,intensity
+59,int_max,max_intensity,Maximal intensity,intensity
+60,int_mean,mean_intensity,Average intensity,intensity
+61,int_mode,mode_intensity,Mode of the intensity distribution,intensity
+62,int_sd,std_intensity,Standard deviation of the intensity distribution,intensity
+63,kurtosis,kurtosis_intensity_distribution,Kurtosis of the intensity distribution,intensity
+64,skewness,skewness_intensity_distribution,Skewness of the intensity distribution,intensity
+65,entropy,entropy_intensity_distribution,Entropy of the intensity distribution,intensity
+66,i80_i20,p80_to_p20_intensity_ratio,Ratio of the 80%-to-20%-tile of the intensity distribution,chromatin condensation
+67,nhigh_nlow,p80_area_to_p20_area_ratio,Ratio of the area of where the intensity is above the 80%-tile respectively below the 20%-tile of the intensity distribution,chromatin condensation
+68,hc_area_ec_area,hetero_to_euchromatin_area_ratio,Ratio of the area where the intensity is greater the average intensity + a multiple of the standard deviation of the intensity (default =1) as a proxy of the heterochromatin-to-euchromatin content,chromatin condensation
+69,hc_area_nuc_area,hetero_to_area_ratio,Area of the heterochromatin content (see hc_area_ec_area) normalized by the area,chromatin condensation
+70,hc_content_ec_content,hetero_to_euchromatin_content_ratio,Ratio of the summed intensity in the heterochromatin respectively euchromatin regions,chromatin condensation
+71,hc_content_dna_content,heterochromatin_to_dna_content_ratio,Ratio of the summed intensity in the heterochromatin regions normalized by the total area,chromatin condensation
+72,contrast_1,glcm_contrast_1px,Contrast of the GLCM matrix for a lag of 1 pixel,texture
+73,contrast_5,glcm_contrast_5px,Contrast of the GLCM matrix for a lag of 5 pixels,texture
+74,contrast_20,glcm_contrast_20px,Contrast of the GLCM matrix for a lag of 20 pixels,texture
+75,dissimilarity_1,glcm_dissimilarity_1px,Dissimilarity of the GLCM matrix for a lag of 1 pixel,texture
+76,dissimilarity_5,glcm_dissimilarity_5px,Dissimilarity of the GLCM matrix for a lag of 5 pixels,texture
+77,dissimilarity_20,glcm_dissimilarity_20px,Dissimilarity of the GLCM matrix for a lag of 20 pixels,texture
+78,homogeneity_1,glcm_homogeneity_1px,Homogeneity of the GLCM matrix for a lag of 1 pixel,texture
+79,homogeneity_5,glcm_homogeneity_5px,Homogeneity of the GLCM matrix for a lag of 5 pixels,texture
+80,homogeneity_20,glcm_homogeneity_20px,Homogeneity of the GLCM matrix for a lag of 20 pixels,texture
+81,asm_1,glcm_asm_1px,Angular second moment of the GLCM matrix for a lag of 1 pixel,texture
+82,asm_5,glcm_asm_5px,Angular second moment of the GLCM matrix for a lag of 5 pixels,texture
+83,asm_20,glcm_asm_20px,Angular second moment of the GLCM matrix for a lag of 20 pixels,texture
+84,energy_1,glcm_energy_1px,Energy of the GLCM matrix for a lag of 1 pixel,texture
+85,energy_5,glcm_energy_5px,Energy of the GLCM matrix for a lag of 5 pixels,texture
+86,energy_20,glcm_energy_20px,Energy of the GLCM matrix for a lag of 20 pixels,texture
+87,correlation_1,glcm_correlation_1px,Correlation of the GLCM matrix for a lag of 1 pixel,texture
+88,correlation_5,glcm_correlation_5px,Correlation of the GLCM matrix for a lag of 5 pixels,texture
+89,correlation_20,glcm_correlation_20px,Correlation of the GLCM matrix for a lag of 20 pixels,texture
+90,weighted_centroid-0,weighted_centroid_y,Y-coordinate of the weighted centroid,n/a
+91,weighted_centroid-1,weighted_centroid_x,X-coordinate of the weighted centroid,n/a
+92,weighted_moments-0-0,weighted_moments_0_0,Weighted spatial moment for p=0 and q=0,moments
+93,weighted_moments-0-1,weighted_moments_0_1,Weighted spatial moment for p=0 and q=1,moments
+94,weighted_moments-0-2,weighted_moments_0_2,Weighted spatial moment for p=0 and q=2,moments
+95,weighted_moments-0-3,weighted_moments_0_3,Weighted spatial moment for p=0 and q=3,moments
+96,weighted_moments-1-0,weighted_moments_1_0,Weighted spatial moment for p=1 and q=0,moments
+97,weighted_moments-1-1,weighted_moments_1_1,Weighted spatial moment for p=1 and q=1,moments
+98,weighted_moments-1-2,weighted_moments_1_2,Weighted spatial moment for p=1 and q=2,moments
+99,weighted_moments-1-3,weighted_moments_1_3,Weighted spatial moment for p=1 and q=3,moments
+100,weighted_moments-2-0,weighted_moments_2_0,Weighted spatial moment for p=2 and q=0,moments
+101,weighted_moments-2-1,weighted_moments_2_1,Weighted spatial moment for p=2 and q=1,moments
+102,weighted_moments-2-2,weighted_moments_2_2,Weighted spatial moment for p=2 and q=2,moments
+103,weighted_moments-2-3,weighted_moments_2_3,Weighted spatial moment for p=2 and q=3,moments
+104,weighted_moments-3-0,weighted_moments_3_0,Weighted spatial moment for p=3 and q=0,moments
+105,weighted_moments-3-1,weighted_moments_3_1,Weighted spatial moment for p=3 and q=1,moments
+106,weighted_moments-3-2,weighted_moments_3_2,Weighted spatial moment for p=3 and q=2,moments
+107,weighted_moments-3-3,weighted_moments_3_3,Weighted spatial moment for p=3 and q=3,moments
+108,weighted_moments_normalized-0-0,weighted_moments_normalized_0_0,Weighted normalized spatial moment for p=0 and q=0,moments
+109,weighted_moments_normalized-0-1,weighted_moments_normalized_0_1,Weighted normalized spatial moment for p=0 and q=1,moments
+110,weighted_moments_normalized-0-2,weighted_moments_normalized_0_2,Weighted normalized spatial moment for p=0 and q=2,moments
+111,weighted_moments_normalized-0-3,weighted_moments_normalized_0_3,Weighted normalized spatial moment for p=0 and q=3,moments
+112,weighted_moments_normalized-1-0,weighted_moments_normalized_1_0,Weighted normalized spatial moment for p=1 and q=0,moments
+113,weighted_moments_normalized-1-1,weighted_moments_normalized_1_1,Weighted normalized spatial moment for p=1 and q=1,moments
+114,weighted_moments_normalized_1-2,weighted_moments_normalized_1_2,Weighted normalized spatial moment for p=1 and q=2,moments
+115,weighted_moments_normalized-1-3,weighted_moments_normalized_1_3,Weighted normalized spatial moment for p=1 and q=3,moments
+116,weighted_moments_normalized-2-0,weighted_moments_normalized_2_0,Weighted normalized spatial moment for p=2 and q=0,moments
+117,weighted_moments_normalized-2-1,weighted_moments_normalized_2_1,Weighted normalized spatial moment for p=2 and q=1,moments
+118,weighted_moments_normalized-2-2,weighted_moments_normalized_2_2,Weighted normalized spatial moment for p=2 and q=2,moments
+119,weighted_moments_normalized-2-3,weighted_moments_normalized_2_3,Weighted normalized spatial moment for p=2 and q=3,moments
+120,weighted_moments_normalized-3-0,weighted_moments_normalized_3_0,Weighted normalized spatial moment for p=3 and q=0,moments
+121,weighted_moments_normalized-3-1,weighted_moments_normalized_3_1,Weighted normalized spatial moment for p=3 and q=1,moments
+122,weighted_moments_normalized-3-2,weighted_moments_normalized_3_2,Weighted normalized spatial moment for p=3 and q=2,moments
+123,weighted_moments_normalized-3-3,weighted_moments_normalized_3_3,Weighted normalized spatial moment for p=3 and q=3,moments
+124,weighted_moments_central-0-0,weighted_moments_central_0_0,Weighted central spatial moment for p=0 and q=0,moments
+125,weighted_moments_central-0-1,weighted_moments_central_0_1,Weighted central spatial moment for p=0 and q=1,moments
+126,weighted_moments_central-0-2,weighted_moments_central_0_2,Weighted central spatial moment for p=0 and q=2,moments
+127,weighted_moments_central-0-3,weighted_moments_central_0_3,Weighted central spatial moment for p=0 and q=3,moments
+128,weighted_moments_central-1-0,weighted_moments_central_1_0,Weighted central spatial moment for p=1 and q=0,moments
+129,weighted_moments_central-1-1,weighted_moments_central_1_1,Weighted central spatial moment for p=1 and q=1,moments
+130,weighted_moments_central-1-2,weighted_moments_central_1_2,Weighted central spatial moment for p=1 and q=2,moments
+131,weighted_moments_central-1-3,weighted_moments_central_1_3,Weighted central spatial moment for p=1 and q=3,moments
+132,weighted_moments_central-2-0,weighted_moments_central_2_0,Weighted central spatial moment for p=2 and q=0,moments
+133,weighted_moments_central-2-1,weighted_moments_central_2_1,Weighted central spatial moment for p=2 and q=1,moments
+134,weighted_moments_central-2-2,weighted_moments_central_2_2,Weighted central spatial moment for p=2 and q=2,moments
+135,weighted_moments_central-2-3,weighted_moments_central_2_3,Weighted central spatial moment for p=2 and q=3,moments
+136,weighted_moments_central-3-0,weighted_moments_central_3_0,Weighted central spatial moment for p=3 and q=0,moments
+137,weighted_moments_central-3-1,weighted_moments_central_3_1,Weighted central spatial moment for p=3 and q=1,moments
+138,weighted_moments_central-3-2,weighted_moments_central_3_2,Weighted central spatial moment for p=3 and q=2,moments
+139,weighted_moments_central-3-3,weighted_moments_central_3_3,Weighted central spatial moment for p=3 and q=3,moments
+140,weighted_moments_hu-0,weighted_moments_hu_0,Weighted Hu spatial moment of order 0,moments
+141,weighted_moments_hu-1,weighted_moments_hu_1,Weighted Hu spatial moment of order 1,moments
+142,weighted_moments_hu-2,weighted_moments_hu_2,Weighted Hu spatial moment of order 2,moments
+143,weighted_moments_hu-3,weighted_moments_hu_3,Weighted Hu spatial moment of order 3,moments
+144,weighted_moments_hu-4,weighted_moments_hu_4,Weighted Hu spatial moment of order 4,moments
+145,weighted_moments_hu-5,weighted_moments_hu_5,Weighted Hu spatial moment of order 5,moments
+146,weighted_moments_hu-6,weighted_moments_hu_6,Weighted Hu spatial moment of order 6,moments
+147,moments-0-0,moments_0_0,Spatial moment for p=0 and q=0,moments
+148,moments-0-1,moments_0_1,Spatial moment for p=0 and q=1,moments
+149,moments-0-2,moments_0_2,Spatial moment for p=0 and q=2,moments
+150,moments-0-3,moments_0_3,Spatial moment for p=0 and q=3,moments
+151,moments-1-0,moments_1_0,Spatial moment for p=1 and q=0,moments
+152,moments-1-1,moments_1_1,Spatial moment for p=1 and q=1,moments
+153,moments-1-2,moments_1_2,Spatial moment for p=1 and q=2,moments
+154,moments-1-3,moments_1_3,Spatial moment for p=1 and q=3,moments
+155,moments-2-0,moments_2_0,Spatial moment for p=2 and q=0,moments
+156,moments-2-1,moments_2_1,Spatial moment for p=2 and q=1,moments
+157,moments-2-2,moments_2_2,Spatial moment for p=2 and q=2,moments
+158,moments-2-3,moments_2_3,Spatial moment for p=2 and q=3,moments
+159,moments-3-0,moments_3_0,Spatial moment for p=3 and q=0,moments
+160,moments-3-1,moments_3_1,Spatial moment for p=3 and q=1,moments
+161,moments-3-2,moments_3_2,Spatial moment for p=3 and q=2,moments
+162,moments-3-3,moments_3_3,Spatial moment for p=3 and q=3,moments
+163,moments_normalized-0-0,moments_normalized-0-0,Normalized spatial moments for p=0 and q=0,moments
+164,moments_normalized-0-1,moments_normalized-0-1,Normalized spatial moments for p=0 and q=1,moments
+165,moments_normalized-0-2,moments_normalized-0-2,Normalized spatial moments for p=0 and q=2,moments
+166,moments_normalized-0-3,moments_normalized-0-3,Normalized spatial moments for p=0 and q=3,moments
+167,moments_normalized-1-0,moments_normalized-1-0,Normalized spatial moments for p=1 and q=0,moments
+168,moments_normalized-1-1,moments_normalized-1-1,Normalized spatial moments for p=1 and q=1,moments
+169,moments_normalized-1-2,moments_normalized-1-2,Normalized spatial moments for p=1 and q=2,moments
+170,moments_normalized-1-3,moments_normalized-1-3,Normalized spatial moments for p=1 and q=3,moments
+171,moments_normalized-2-0,moments_normalized-2-0,Normalized spatial moments for p=2 and q=0,moments
+172,moments_normalized-2-1,moments_normalized-2-1,Normalized spatial moments for p=2 and q=1,moments
+173,moments_normalized-2-2,moments_normalized-2-2,Normalized spatial moments for p=2 and q=2,moments
+174,moments_normalized-2-3,moments_normalized-2-3,Normalized spatial moments for p=2 and q=3,moments
+175,moments_normalized-3-0,moments_normalized-3-0,Normalized spatial moments for p=3 and q=0,moments
+176,moments_normalized-3-1,moments_normalized-3-1,Normalized spatial moments for p=3 and q=1,moments
+177,moments_normalized-3-2,moments_normalized-3-2,Normalized spatial moments for p=3 and q=2,moments
+178,moments_normalized-3-3,moments_normalized-3-3,Normalized spatial moments for p=3 and q=3,moments
+179,moments_central-0-0,moments_central_0_0,Central spatial moments for p=0 and q=0,moments
+180,moments_central-0-1,moments_central_0_1,Central spatial moments for p=0 and q=1,moments
+181,moments_central-0-2,moments_central_0_2,Central spatial moments for p=0 and q=2,moments
+182,moments_central-0-3,moments_central_0_3,Central spatial moments for p=0 and q=3,moments
+183,moments_central-1-0,moments_central_1_0,Central spatial moments for p=1 and q=0,moments
+184,moments_central-1-1,moments_central_1_1,Central spatial moments for p=1 and q=1,moments
+185,moments_central-1-2,moments_central_1_2,Central spatial moments for p=1 and q=2,moments
+186,moments_central-1-3,moments_central_1_3,Central spatial moments for p=1 and q=3,moments
+187,moments_central-2-0,moments_central_2_0,Central spatial moments for p=2 and q=0,moments
+188,moments_central-2-1,moments_central_2_1,Central spatial moments for p=2 and q=1,moments
+189,moments_central-2-2,moments_central_2_2,Central spatial moments for p=2 and q=2,moments
+190,moments_central-2-3,moments_central_2_3,Central spatial moments for p=2 and q=3,moments
+191,moments_central-3-0,moments_central_3_0,Central spatial moments for p=3 and q=0,moments
+192,moments_central-3-1,moments_central_3_1,Central spatial moments for p=3 and q=1,moments
+193,moments_central-3-2,moments_central_3_2,Central spatial moments for p=3 and q=2,moments
+194,moments_central-3-3,moments_central_3_3,Central spatial moments for p=3 and q=3,moments
+195,moments_hu-0,moments_hu_0,Hu spatial moments of order 0,moments
+196,moments_hu-1,moments_hu_1,Hu spatial moments of order 1,moments
+197,moments_hu-2,moments_hu_2,Hu spatial moments of order 2,moments
+198,moments_hu-3,moments_hu_3,Hu spatial moments of order 3,moments
+199,moments_hu-4,moments_hu_4,Hu spatial moments of order 4,moments
+200,moments_hu-5,moments_hu_5,Hu spatial moments of order 5,moments
+201,moments_hu-6,moments_hu_6,Hu spatial moments of order 6,moments
