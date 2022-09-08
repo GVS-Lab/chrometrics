@@ -12,6 +12,7 @@ This package aims to provide an exhaustive set of interpretable morphometric and
 
 
 Documentation is being updated and will be made available [here](https://nmco-image-features.readthedocs.io/en/latest/?badge=latest)
+
 The list of features and their description can be found in the file "chrometric_feature_description.csv"
 
 Illustration of feature extraction can also be checked here[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1R9sddqwshbvrO6q04Jjd1QvANa9Jiy6M?authuser=1#scrollTo=tvQ3eDe69Ath)
