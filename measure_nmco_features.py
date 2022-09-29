@@ -29,7 +29,7 @@ options.add_argument('--measure_hc_ec_ratios_features', type = bool, help = 'Mea
 options.add_argument('--hc_threshold', type = float, help = 'threshold (alpha) to detect heterochromatin', 
                      default = 1)
 
-options.add_argument('--gclm_lengths', type = list, help = 'list of lengths to be used for GCLM features', 
+options.add_argument('--gclm_lengths', type = int, nargs='+', help = 'list of lengths to be used for GCLM features', 
                      default = [1, 5, 20])
 options.add_argument('--measure_gclm_features', type = bool, help = 'Measure GCLM features', 
                      default = True)
