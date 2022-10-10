@@ -10,7 +10,7 @@ Available Functions:
 # Import modules
 import numpy as np
 import pandas as pd
-from skimage.feature import greycomatrix, greycoprops
+from skimage.feature import graycomatrix, graycoprops
 from skimage import img_as_ubyte
 from skimage import measure
 
@@ -25,33 +25,33 @@ def gclm_textures(regionmask: np.ndarray, intensity: np.ndarray, lengths=[1, 5, 
      """
     # Contruct GCL matrix at given pixels lengths
 
-    glcm = greycomatrix(
+    glcm = graycomatrix(
         img_as_ubyte((intensity * regionmask) / 255),
         distances=lengths,
         angles=[0, np.pi / 4, np.pi / 2, 3 * np.pi / 4],
     )
 
-    contrast = pd.DataFrame(np.mean(greycoprops(glcm, "contrast"), axis=1).tolist()).T
+    contrast = pd.DataFrame(np.mean(graycoprops(glcm, "contrast"), axis=1).tolist()).T
     contrast.columns = ["contrast_" + str(col) for col in lengths]
     
     dissimilarity = pd.DataFrame(
-        np.mean(greycoprops(glcm, "dissimilarity"), axis=1).tolist()
+        np.mean(graycoprops(glcm, "dissimilarity"), axis=1).tolist()
     ).T
     dissimilarity.columns = ["dissimilarity_" + str(col) for col in lengths]
     
     homogeneity = pd.DataFrame(
-        np.mean(greycoprops(glcm, "homogeneity"), axis=1).tolist()
+        np.mean(graycoprops(glcm, "homogeneity"), axis=1).tolist()
     ).T
     homogeneity.columns = ["homogeneity_" + str(col) for col in lengths]
     
-    ASM = pd.DataFrame(np.mean(greycoprops(glcm, "ASM"), axis=1).tolist()).T
+    ASM = pd.DataFrame(np.mean(graycoprops(glcm, "ASM"), axis=1).tolist()).T
     ASM.columns = ["asm_" + str(col) for col in lengths]
     
-    energy = pd.DataFrame(np.mean(greycoprops(glcm, "energy"), axis=1).tolist()).T
+    energy = pd.DataFrame(np.mean(graycoprops(glcm, "energy"), axis=1).tolist()).T
     energy.columns = ["energy_" + str(col) for col in lengths]
     
     correlation = pd.DataFrame(
-        np.mean(greycoprops(glcm, "correlation"), axis=1).tolist()
+        np.mean(graycoprops(glcm, "correlation"), axis=1).tolist()
     ).T
     correlation.columns = ["correlation_" + str(col) for col in lengths]
 
