@@ -60,7 +60,7 @@ def run_nuclear_chromatin_feat_ext(raw_image_path:str, labelled_image_path:str, 
     for i in tqdm(range(len(props))):
         all_features = all_features.append(
             pd.concat(
-                [pd.DataFrame([i + 1], columns=["label"]),
+                [pd.DataFrame([props[i].label], columns=["label"]),
                  BG.measure_global_morphometrics(props[i].image, 
                                                  angular_resolution = calliper_angular_resolution, 
                                                  measure_simple = measure_simple_geometry,
