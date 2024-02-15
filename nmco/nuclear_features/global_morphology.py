@@ -48,7 +48,7 @@ def radii_features(binary_mask: np.ndarray):
             "max_radius": np.max(dist_b_c),
             "med_radius": np.median(dist_b_c),
             "avg_radius": np.mean(dist_b_c),
-            "mode_radius": stats.mode(dist_b_c, axis=None)[0][0],
+            "mode_radius": stats.mode(dist_b_c, axis=None).mode,
             "d25_radius": np.percentile(dist_b_c, 25),
             "d75_radius": np.percentile(dist_b_c, 75),
             "std_radius": np.std(dist_b_c),
@@ -119,6 +119,7 @@ def measure_global_morphometrics(binary_image:np.ndarray, angular_resolution:int
     if(measure_calliper):
         feat.update(calliper_sizes(binary_image, angular_resolution))
     if(measure_radii):
+        print("measuring radii")
         feat.update(radii_features(binary_image))
     if(measure_simple):
         feat = pd.concat([pd.DataFrame([feat]), simple_morphology(binary_image)], axis =1)
