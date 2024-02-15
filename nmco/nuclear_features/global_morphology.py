@@ -119,7 +119,6 @@ def measure_global_morphometrics(binary_image:np.ndarray, angular_resolution:int
     if(measure_calliper):
         feat.update(calliper_sizes(binary_image, angular_resolution))
     if(measure_radii):
-        print("measuring radii")
         feat.update(radii_features(binary_image))
     if(measure_simple):
         feat = pd.concat([pd.DataFrame([feat]), simple_morphology(binary_image)], axis =1)
